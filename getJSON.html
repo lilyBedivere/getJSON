@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+		.ui-table{
+			margin: 20px auto;width: 400px; border-collapse: collapse;font-size: 12px;text-align: center;color: #666;
+		}
+		.ui-table th, .ui-table td {padding: 4px 8px; border: 1px solid #ccc;}
+		.ui-table th {background-color: #f0f0f0;}
+
+        </style>
+        <script src="jquery.min.js"></script>	
+        <title>查询页面</title>
+    </head>
+    <body>
+    	<table class="ui-table" id="studentInfo">
+    		<caption><h2>产品信息</h2></caption>
+    		<thead>
+    			<tr>
+    				<th style="width: 45px">序号</th>
+    				<th>名称</th>
+    				<th >工位</th>
+    				<th>编码</th>
+    				<th>工艺</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr>
+    				<td colspan="5">
+    					<input type="button" id="ui-btn" value="加载信息"></input>
+    				</td>
+    			</tr>
+    		</tbody>
+		</table>
+		<script type="text/javascript">
+			$(function(){
+				$("#ui-btn").on("click",function(){
+					var $this=$(this);
+					var tbody = $("#studentInfo").find("tbody");
+					$.getJSON("text.json",function(data){
+						$this.attr("disabled","ture");
+                        tbody.empty();
+						$.each(data,function(index,el){
+						tbody.append(
+        					"<tr><td>" + parseInt(index+1) + "</td><td>" +
+								  el["name"] + "</td><td>" +
+						          el["station"] +   "</td><td>" +
+	    						  el["ser"] +   "</td><td>" +
+	    						  el["thy"] +   "</td></tr>");
+                        
+						});
+
+					});	
+				});
+			});
+		</script>
+        
+    </body>
+</html>
